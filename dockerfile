@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY package*.json ./
 
-# Ignore audit's exit code so remaining unfixable items don't break the build
 RUN npm ci --omit=dev \
- && (npm audit fix --omit=dev || true)
+ && (npm audit fix --omit=dev || true) \
+ && rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 
 COPY . .
 
